@@ -84,12 +84,21 @@ resources:
 #         key: key
 
 # Override environment variables entirely !!DANGEROUS!!
-# envOverride:
-#   - name: PG_DEBUG
-#     value: "true"
+ envOverride:
+   - name: CHECK_FOR_UPGRADES
+     value: "false"
 
 # tolerations allows you to define pod tolerations for the operator pods.
 # tolerations: []
 
 # affinity allows you to define pod affinity and anti-affinity rules for the operator pods.
-# affinity: {}
+ affinity: {  
+   nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - infra0
+}
