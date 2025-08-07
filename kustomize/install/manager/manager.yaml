@@ -13,6 +13,8 @@ spec:
       - name: operator
         image: postgres-operator
         env:
+        - name: CHECK_FOR_UPGRADES
+          value: "false"
         - name: PGO_INSTALLER
           value: kustomize
         - name: PGO_INSTALLER_ORIGIN
