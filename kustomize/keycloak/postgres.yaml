@@ -15,15 +15,14 @@ spec:
           requests:
             storage: 1Gi
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            podAffinityTerm:
-              topologyKey: kubernetes.io/hostname
-              labelSelector:
-                matchLabels:
-                  postgres-operator.crunchydata.com/cluster: keycloakdb
-                  postgres-operator.crunchydata.com/instance-set: "00"
+        nodeAffinity:
+          required:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - infra0
   backups:
     pgbackrest:
       repos:
